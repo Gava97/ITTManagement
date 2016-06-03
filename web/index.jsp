@@ -56,7 +56,7 @@
             <%                    } else {
 
             %>
-            <div id="top-left">  <a href="registrazione.jsp" >Cerca/Modifica</a></div>
+            <div id="top-left">  <a href="ricerca.jsp" >Cerca/Modifica</a></div>
             <div id="top-right"> <a href="registrazione.jsp" >Registrazione</a></div>
             <div id="logout"> <form action="" class="form" method="post"> <button type="submit" name="logout_button" value="Invia">Logout</button></form></div>
             <%    }
