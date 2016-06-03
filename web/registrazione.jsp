@@ -38,7 +38,7 @@
 
                 if (tipo_utente.equals("personale_ata")) {
                     DBManager db = new DBManager();
-                    db.inserisciPersonaleATA(nome, cognome, cf, tipo_utente, luogo_nascita, residenza, istituto, provenienza);
+                    db.inserisciPersonaleATA(nome, cognome, cf, data_nascita, luogo_nascita, residenza, istituto, provenienza);
                 } else if (tipo_utente.equals("preside")) {
                     DBManager db = new DBManager();
                     db.inserisciPersonaleATA(nome, cognome, cf, tipo_utente, luogo_nascita, residenza, istituto, provenienza);
@@ -61,7 +61,7 @@
                                 <input type="radio" name="tipo_utente" value="personale_ata">Personale ATA
                                 <input type="radio" name="tipo_utente" value="professore">Professore
                                 <input type="radio" name="tipo_utente" value="studente_biennio">Studente Biennio
-                                <input type="radio" name="tipo_utente" value="studente_triennio">Studente Triennio
+                                <input type="radio" name="tipo_utente" value="studente_triennio">Studente Triennio<br>
                                 <label for="data_nascita">Data di nascita:
                                     <input type="date" name="data_nascita" required><br>	
                                     <label for="luogo_nascita">Luogo di nascita:
@@ -74,7 +74,7 @@
                                                     <input type="radio" name="istituto" value="itt">ITT
                                                     <input type="radio" name="istituto" value="ipsia">IPSIA
                                                     <input type="radio" name="istituto" value="ite">ITE
-                                                    proveniienza
+                                                    provenienza<br>
                                                     <input type="submit" name="registra" value="Registra">
                                                     </form>
                                                     </div>

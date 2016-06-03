@@ -203,7 +203,7 @@ public class DBManager {
   
   public boolean  inserisciProfessore(String nome_param,String cognome_param,String cf_param,String dataNascita_param,String luogoNascita_param,String residenza_param,String istituto_param,String provenienza_param) throws SQLException{
      boolean res=true;
-	 String query="INSERT INTO utente (nome,cognome,cf,tipo_utente,data_nascita,luogo_nascita,provenienza,istituto,residenza) VALUES ('"+nome_param+"','"+cognome_param+"','"+cf_param+"','professore','"+dataNascita_param+"','"+dataNascita_param+"','"+luogoNascita_param+"','"+provenienza_param+"','"+istituto_param+"','"+residenza_param+"')";
+	 String query="INSERT INTO utente (nome,cognome,cf,tipo_utente,data_nascita,luogo_nascita,provenienza,istituto,residenza) VALUES ('"+nome_param+"','"+cognome_param+"','"+cf_param+"','professore','"+dataNascita_param+"','"+luogoNascita_param+"','"+provenienza_param+"','"+istituto_param+"','"+residenza_param+"')";
      
      this.insertOrUpdateOrDelete(query);
       //Chiude la connessione (IMPORTANTE);
@@ -222,7 +222,7 @@ public class DBManager {
   
   public boolean  inserisciPersonaleATA(String nome_param,String cognome_param,String cf_param,String dataNascita_param,String luogoNascita_param,String residenza_param,String istituto_param,String provenienza_param) throws SQLException{
      boolean res=true;
-     String query="INSERT INTO utente (nome,cognome,cf,tipo_utente,data_nascita,luogo_nascita,provenienza,istituto,residenza) VALUES ('"+nome_param+"','"+cognome_param+"','"+cf_param+"','personale_ata','"+dataNascita_param+"','"+dataNascita_param+"','"+luogoNascita_param+"','"+provenienza_param+"','"+istituto_param+"','"+residenza_param+"')";
+     String query="INSERT INTO utente (nome,cognome,cf,tipo_utente,data_nascita,luogo_nascita,provenienza,istituto,residenza) VALUES ('"+nome_param+"','"+cognome_param+"','"+cf_param+"','personale_ata','"+dataNascita_param+"','"+luogoNascita_param+"','"+provenienza_param+"','"+istituto_param+"','"+residenza_param+"')";
      this.insertOrUpdateOrDelete(query);
       //Chiude la connessione (IMPORTANTE);
       try{
