@@ -121,18 +121,30 @@ form button:hover {
 #top-left{
     padding-top:100px;
     text-align: center;
-    float: left;
     width:50%;
+    float:left;
 }
 
 #top-right{
     padding-top:100px;
     text-align:center;
-    float: right;
     width:50%;
+    float:right;
 }
 
 #logout{
+    margin-top:200px;
     text-align:center;
     width:100%;
+    overflow:hidden;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+    font-size:large;
+}
+
+a:hover{
+    color: antiquewhite;
 }

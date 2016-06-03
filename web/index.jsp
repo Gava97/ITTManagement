@@ -15,22 +15,25 @@
     </head>
 
     <body>
+       
         <%
+            DBManager sistema = new DBManager();
             String username, password;
             username = request.getParameter("Username");
             password = request.getParameter("Password");
-            try{
+            try {
                 if (username != null && password != null) {
-                    DBManager sistema = new DBManager();
-                    String vet[]=sistema.getPasswordETipo(username);
+                    password = sistema.getSha2(password);
+                    String vet[] = sistema.getPasswordETipo(username);
 
                     if (vet[0].equals(password)) {
                         session.setAttribute("username", username);
                         session.setAttribute("livello", vet[1]);
                     }
                 }
-            }catch(Exception e){}
-            
+            } catch (Exception e) {
+            }
+
             if (request.getParameter("logout_button") != null) {
                 session.removeAttribute("username");
             }
@@ -45,7 +48,7 @@
             <div class="container">
                 <h1>Benvenuto</h1>
                 <form action="" class="form" method="post">
-                    <input type="text" placeholder="Username" name="Username"/>
+                    <input type="text" placeholder="Email" name="Username"/>
                     <input type="password" placeholder="Password" name="Password"/>
                     <button type="submit" value="Invia">Login</button>
                 </form>
@@ -53,8 +56,8 @@
             <%                    } else {
 
             %>
-            <div id="top-left"> Link1</div>
-            <div id="top-right"> Link2</div>
+            <div id="top-left">  <a href="registrazione.jsp" >Cerca/Modifica</a></div>
+            <div id="top-right"> <a href="registrazione.jsp" >Registrazione</a></div>
             <div id="logout"> <form action="" class="form" method="post"> <button type="submit" name="logout_button" value="Invia">Logout</button></form></div>
             <%    }
 

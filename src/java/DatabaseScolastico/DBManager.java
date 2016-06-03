@@ -13,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Joker
@@ -346,13 +348,11 @@ public class DBManager {
   }
   
   
-  public boolean  eliminaStudenteBiennio(int id_utente_param) throws SQLException{
+  
+  public boolean  eliminaFile(String path) throws SQLException{
      boolean res=true;
-      String query="DELETE FROM file WHERE id_utente="+id_utente_param;
+      String query="DELETE FROM file WHERE path_file='"+path+"'";
      this.insertOrUpdateOrDelete(query);
-      query="DELETE FROM utente WHERE id="+id_utente_param;
-     this.insertOrUpdateOrDelete(query);
-      //Chiude la connessione (IMPORTANTE);
       try{
         this.conn.close();
         res=true;
@@ -1054,7 +1054,7 @@ public boolean  eliminaAmministratore(int username_param) throws SQLException{
 
   public String[] getPasswordETipo(String username_param) throws SQLException{
      String dati[] = new String[2];  
-     ResultSet query_result = this.select("SELECT password,tipo_utente FROM amministratore WHERE username='"+username_param+"';");
+     ResultSet query_result = this.select("SELECT password,tipo_utente FROM amministratore WHERE email='"+username_param+"';");
      while (query_result.next()) 
         { 
             String password = query_result.getString("password"); 
@@ -1062,11 +1062,28 @@ public boolean  eliminaAmministratore(int username_param) throws SQLException{
             
             dati[0]=password;
             dati[1]=tipo_utente;
-           
-           
-            
+          
         } 
      
+      //Chiude la connessione (IMPORTANTE);
+      try{
+        this.conn.close();
+      }
+      catch(Exception e){
+        e.printStackTrace();
+      }
+     
+     return dati;
+  }
+  
+  public String getSha2(String string) throws SQLException{
+      String dati = null;
+     ResultSet query_result = this.select("SELECT SHA2(\""+string+"\",256)");
+     while (query_result.next()) 
+        { 
+          dati = query_result.getString(1);
+            
+        }
       //Chiude la connessione (IMPORTANTE);
       try{
         this.conn.close();
