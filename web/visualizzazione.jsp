@@ -4,6 +4,7 @@
     Author     : stefanogava
 --%>
 
+<%@page import="org.apache.commons.io.FileUtils"%>
 <%@page import="java.io.Writer"%>
 <%@page import="java.io.FileWriter"%>
 <%@page import="java.io.BufferedWriter"%>
@@ -45,7 +46,7 @@
                 <h3>Test Visualizzazione</h3>
                 <!--<div class="visualizza_file">-->
                 <% 
-                    DBManager dbmanager = new DBManager();          
+                    DBManager dbmanager = new DBManager();           
                     List<Utente> utenti=dbmanager.getAllProfessori();
                     //utenti=dbmanager.getAllPersonaleATA();
                     int i = 0;
@@ -54,15 +55,21 @@
                         out.println("cognome : "+utenti.get(i).getCognome()+"<br>");
                         //out.println("fare altro for per paths : " + utenti.get(i).getPaths().+"<br>");
                         for(int j=0;j<utenti.get(i).getPaths().size();j++){
+                            out.println("<form action='index.jsp' method='post' name='allegati'>");
+                            //out.println("<input type='checkbox' name='elimina' value='"+utenti.get(i).getPaths().get(j)+"'/>");
+                            out.println("<input type='hidden' name='idFile' value='"+utenti.get(i).getPaths().get(j)+"'/>");
                             out.println("allegati : <a href='"+utenti.get(i).getPaths().get(j)+"' download>"+utenti.get(i).getPaths().get(j)+"</a><br>");
+                            out.println("<input type='submit' name='eliminaFile' value='EliminaAllegato'/>");
+                            out.println("</form>");
                         }
+                        
                         out.println("id : "+utenti.get(i).getId()+"<br>");
                         out.println("CF : " + utenti.get(i).getCodiceFiscale()+"<br>");
                         out.println("tipo : "+utenti.get(i).getTipoUtente()+"<br>");
                     //}
                 %>
                 <form action="index.jsp" method="POST">
-                    <input type="submit" name="elimina" value="Elimina"/>
+                    <input type="submit" name="elimina" value="elimina"/>
                 </form>
                 <%
                     //'personale_ata','professore','studente_biennio','studente_triennio'
@@ -75,11 +82,24 @@
                             dbmanager.eliminaStudenteBiennio(utenti.get(i).getId());
                         if(utenti.get(i).getTipoUtente().equals("studente_triennio"))
                             dbmanager.eliminaStudenteTriennio(utenti.get(i).getId());
+                        //dbmanager.inserisciLOG(session.getAttribute("username").toString(),"Eliminazione utente: "+utenti.get(i).getTipoUtente());
+                        File f= new File("../docroot/files/"+utenti.get(i).getId()+"/");
+                        //File[] a=f.listFiles();
+                        //FileUtils.cleanDirectory(f); 
+                        //f.delete();
+                        dbmanager.deleteFolder(f);
                 }
+                    
+                    if(request.getParameter("eliminaFile")!=null){
+                        dbmanager.eliminaFile(request.getParameter("idFile"));
+                        File f= new File("../docroot/"+request.getParameter("idFile"));                      
+                        f.delete();
+                        //dbmanager.inserisciLOG(session.getAttribute("username").toString(),"Eliminazione file: "+"../docroot/"+request.getParameter("idFile")+" -> utente: "+utenti.get(i).getId());
+                    }
                 %>
                 <form action ="index.jsp" method="post">
                     <input type="submit" name="modifica" value="Modifica"/>
-                </form>
+                </form> 
                 <br>
                 <%
                     if(request.getParameter("modifica")!=null){
@@ -144,7 +164,8 @@
                         String Provenienza=request.getParameter("modProvenienza");
                         String S2=request.getParameter("selezione2");
                         String Residenza=request.getParameter("modResidenza");
-                        dbmanager.effettuaModifiche(Nome, Cognome, CF, S1, DataNascita, LuogoNascita, Provenienza, S2, Residenza);
+                        dbmanager.effettuaModifiche(utenti.get(i).getId(),Nome, Cognome, CF, S1, DataNascita, LuogoNascita, Provenienza, S2, Residenza);
+                        //dbmanager.inserisciLOG(session.getAttribute("username").toString(), "Modifica parametro utente :"+utenti.get(i).getId());
                     }
                 %>  
                 <%
@@ -170,3 +191,5 @@
         </div>
     </body>
 </html>
+<%
+%>
